@@ -3,13 +3,20 @@ import queue
 import threading
 import time
 from page_parser import PageParser
+import re
 
 
 def main_thread(stop_queue):
     last_url = ""
     while True:
         url = pyperclip.paste()
-        if url.startswith(r"https://danbooru") and "posts" in url and url != last_url:
+        pure_path = url[: url.rfind("?")]
+        if (
+            url.startswith(r"https://danbooru")
+            and "posts" in url
+            and bool(re.search(r"/posts/\d+$", pure_path))
+            and url != last_url
+        ):
             try:
                 parser = PageParser(url)
                 tags = parser.get_tags()
