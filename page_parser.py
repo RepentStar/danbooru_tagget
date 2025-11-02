@@ -14,6 +14,7 @@ class PageParser:
             [
                 "original",
                 "commentary",
+                "commission",
                 "non-web source",
                 ".*request$",
                 "highres",
